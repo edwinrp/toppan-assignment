@@ -1,0 +1,11 @@
+stages:
+  - auto scaling refresh
+
+auto scaling refresh:
+  stage: auto scaling refresh
+  image:
+      name: amazon/aws-cli
+      entrypoint: [""]
+  script:
+      - aws configure set region ap-southeast-1
+      - aws autoscaling start-instance-refresh --auto-scaling-group-name toppan_asg

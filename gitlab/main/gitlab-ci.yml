@@ -1,0 +1,17 @@
+stages:
+  - packages
+  - packages2
+
+packageA:
+  stage: packages
+  trigger:
+    include: packageA/.gitlab-ci.yml   
+    strategy: depend
+
+
+packageB:
+  stage: packages2
+  trigger:
+    include: packageB/.gitlab-ci.yml
+    strategy: depend
+

@@ -1,0 +1,24 @@
+stages:
+   - pages
+   - upload to s3
+
+pages:
+   stage: pages
+   script:
+   - mkdir .public
+   - cp -r * .public
+   - mv .public public
+   artifacts:
+    paths:
+    - public
+
+upload to s3:
+   stage: upload to s3
+   image:
+      name: banst/awscli
+      entrypoint: [""]
+   script:
+      - aws configure set region ap-southeast-1
+      - aws s3 cp public/index.html s3://$S3_BUCKET/index.html
+   dependencies:
+      - pages

@@ -1,0 +1,13 @@
+#!/bin/bash
+sudo yum update -y
+sudo amazon-linux-extras install nginx1 -y 
+sudo systemctl enable nginx
+sudo systemctl start nginx
+aws s3 cp s3://toppans3edwin/index.html /usr/etc/
+aws s3 cp s3://toppans3edwin/nginx.conf /usr/etc/nginx.conf
+sudo su
+cd /etc/nginx
+rm -f nginx.conf
+cd ..
+cat /usr/etc/nginx.conf >> /etc/nginx/nginx.conf 
+sudo systemctl restart nginx
